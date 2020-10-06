@@ -1,0 +1,64 @@
+<div class="d-inline-block w-100 p-5 text-center">
+  <button type="button" class="btn btn-primary" (click)="open(cookieBanner)">
+    Launch Cookie-Banner
+  </button>
+
+  <ng-template #cookieBanner let-modal>
+    <div class="cookieBanner">
+      <div class="modal-content bg-white">
+        <div class="modal-header flex-column bg-white">
+          <h5 class="modal-title" id="cookieBannerLabel">
+            Can we store cookies?
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" autofocus="false">
+            <span aria-hidden="true" (click)="modal.dismiss('Closed with button')">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body-inner-text">
+            <p class="head-pera">
+              We and our partners use technologies, such as cookies, and process
+              personal data, such as IP addresses and cookie identifiers, to
+              personalize ads and content based on your interests, measure the
+              performance of ads and content, and derive insights about the
+              audiences who saw ads and content.
+            </p>
+            <p class="head-pera">
+              Click below to consent to the use of this technology and the
+              processing of your personal data for these purposes. You can
+              change your mind and change your consent choices any time by
+              returning to this site.
+            </p>
+
+            <p class="head-pera privacy-policy">
+              You can familiarize with our <a href="#">Privacy Policy</a>
+            </p>
+            <div class="settings-btns d-inline-flex w-100 align-items-center">
+              <a href="#" class="btn btn-success mr-3">Accept All</a>
+              <a href="#" class="btn btn-white-outline mr-3">Save Settings</a>
+              <a class="custom-link ml-auto" data-toggle="collapse" href="#" role="button"
+                [attr.aria-expanded]="!isCollapsed" aria-controls="customize-accordian"
+                (click)="isCollapsed = !isCollapsed">
+                Customize
+                <i class="fa fa-caret-down" [class.fa-caret-up]="!isCollapsed"></i></a>
+            </div>
+          </div>
+
+          <div class="custom-inner-box collapse" id="customize-accordian" [ngbCollapse]="isCollapsed">
+
+            <p *ngIf="bannerData.length < 1 && !isFetching">
+              No Customized Settings Fields
+            </p>
+            <app-accordian [accordianData]=bannerData></app-accordian>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <p *ngIf="isFetching && !errorMessage">Loading... Please Wait.</p>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    <h4>Some Error Occured</h4>
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>
